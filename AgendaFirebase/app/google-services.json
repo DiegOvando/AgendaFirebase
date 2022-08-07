@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "155240087855",
+    "project_id": "appfirebase-da132",
+    "storage_bucket": "appfirebase-da132.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:155240087855:android:1343712de084b1015e61da",
+        "android_client_info": {
+          "package_name": "com.example.agendafirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "155240087855-1flo6n6b4qe8c5cbvec01ftlc7n6dmjg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.agendafirebase",
+            "certificate_hash": "4b863ac848cbf7fefde68158d9434bee26c3aaaf"
+          }
+        },
+        {
+          "client_id": "155240087855-dn6ihad1uokp31ao6od5850vb229u7il.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaCVny5ftxJKnsqdEaqAyze-iFGvUOaxA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "155240087855-dn6ihad1uokp31ao6od5850vb229u7il.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
