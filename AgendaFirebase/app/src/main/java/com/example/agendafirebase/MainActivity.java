@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -22,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private Button btnGuardar;
+    private Button btnCerrar;
     private Button btnListar;
     private Button btnLimpiar;
     private TextView txtNombre;
@@ -41,6 +44,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         initComponents();
         setEvents();
+        btnCerrar = (Button) findViewById(R.id.btnCerrar);
+        btnCerrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alerta = new AlertDialog.Builder(MainActivity.this);
+                alerta.setMessage("¿Desea cerrar sesión?")
+                        .setCancelable(false)
+                        .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                                startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+                AlertDialog titulo = alerta.create();
+                titulo.setTitle("Salir");
+                titulo.show();
+            }
+        });
     }
     public void initComponents() {
 //se obtiene una instancia de la base de datos y se obtiene la referencia que apunta a la tabla contactos
@@ -104,7 +132,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     } break;
                 case R.id.btnLimpiar:
                     limpiar();
-                    break; case
+                    break;
+                    case
                         R.id.btnListar:
                     Intent i= new Intent(MainActivity.this,ListaActivity.class);
                     limpiar();

@@ -43,6 +43,7 @@ dependencies {
     //LINEA PARA LA BASE DE DATOS
     implementation 'com.google.firebase:firebase-core:21.1.0'
     implementation 'com.google.firebase:firebase-database:20.0.5'
+    implementation 'com.google.firebase:firebase-auth:21.0.7'
 }
 
 //LINEA PARA LA BASE DE DATOS

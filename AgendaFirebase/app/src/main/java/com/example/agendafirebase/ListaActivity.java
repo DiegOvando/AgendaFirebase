@@ -3,8 +3,10 @@ package com.example.agendafirebase;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -35,14 +37,18 @@ public class ListaActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista);
+
         basedatabase = FirebaseDatabase.getInstance();
         referencia = basedatabase.getReferenceFromUrl(ReferenciasFirebase.URL_DATABASE
                 + ReferenciasFirebase.DATABASE_NAME + "/" +ReferenciasFirebase.TABLE_NAME);
         btnNuevo = (Button)findViewById(R.id.btnNuevo);
         obtenerContactos();
+
+
         btnNuevo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 setResult(Activity.RESULT_CANCELED);
                 finish();
             }
@@ -53,6 +59,7 @@ public class ListaActivity extends ListActivity {
         ChildEventListener listener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
                 Contactos contacto = dataSnapshot.getValue(Contactos.class);
                 contactos.add(contacto); final MyArrayAdapter adapter =
                         new MyArrayAdapter(context,R.layout.layout_contacto,contactos);
@@ -98,18 +105,40 @@ public class ListaActivity extends ListActivity {
                 lblNombre.setTextColor(Color.BLACK);
                 lblTelefono.setTextColor(Color.BLACK);
             }
+
             lblNombre.setText(objects.get(position).getNombre());
             lblTelefono.setText(objects.get(position).getTelefono1());
+
+
+
             btnBorrar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    borrarContacto(objects.get(position).get_ID());
-                    objects.remove(position);
-                    notifyDataSetChanged();
-                    Toast.makeText(getApplicationContext(), "Contacto eliminado con exito",
-                            Toast.LENGTH_SHORT).show();
+                    AlertDialog.Builder alerta = new AlertDialog.Builder(ListaActivity.this);
+                    alerta.setMessage("¿Desea Eliminar este contacto?")
+                            .setCancelable(false)
+                            .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    borrarContacto(objects.get(position).get_ID());
+                                    objects.remove(position);
+                                    notifyDataSetChanged();
+                                    Toast.makeText(getApplicationContext(), "Contacto eliminado con exito", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            });
+                    AlertDialog titulo = alerta.create();
+                    titulo.setTitle("Borrar");
+                    titulo.show();
+
                 }
             });
+
             btnModificar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -123,6 +152,9 @@ public class ListaActivity extends ListActivity {
             }); return view;
         }
     }
+
+
+
     public void borrarContacto(String childIndex){
         referencia.child(String.valueOf(childIndex)).removeValue();
     }

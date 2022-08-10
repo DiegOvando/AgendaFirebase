@@ -95,6 +95,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/btn_listar" />
+        <Button
+            android:id="@+id/btnCerrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cerrar Sesión" />
     </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
